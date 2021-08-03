@@ -127,11 +127,6 @@ git_lecturer.courses_mentored += ['Git']
 
 # Оцеки лекторам
 flow_one_student.grade_lecture(python_lecturer, 'Python', 10)
-flow_one_student.grade_lecture(python_lecturer, 'Python', 10)
-flow_one_student.grade_lecture(python_lecturer, 'Python', 10)
-
-flow_two_student.grade_lecture(git_lecturer, 'Git', 10)
-flow_two_student.grade_lecture(git_lecturer, 'Git', 9)
 flow_two_student.grade_lecture(git_lecturer, 'Git', 9)
 
 # Проверяющии
@@ -143,12 +138,7 @@ git_reviewer.courses_attached += ['Git']
 
 # Оцеки студентам
 python_reviewer.rate_hw(flow_one_student, 'Python', 9)
-python_reviewer.rate_hw(flow_one_student, 'Python', 10)
-python_reviewer.rate_hw(flow_one_student, 'Python', 8)
-
 git_reviewer.rate_hw(flow_two_student, 'Git', 7)
-git_reviewer.rate_hw(flow_two_student, 'Git', 10)
-git_reviewer.rate_hw(flow_two_student, 'Git', 9)
 
 
 print(python_reviewer)
