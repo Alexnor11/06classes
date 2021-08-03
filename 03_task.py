@@ -110,6 +110,16 @@ else:
 # Полевые испытания:
 
 
+def grade_student(student, course):
+    """Срелняя оцека по студентам"""
+    pass
+
+
+def grade_lecturer(lecturer, course):
+    """Средняя оцека по лекторам"""
+    pass
+
+
 # Студенты
 flow_one_student = Student('Oleg', 'Shishkin', 'man')
 flow_two_student = Student('Natasha', 'Queen', 'woman')
