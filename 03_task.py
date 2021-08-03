@@ -8,6 +8,7 @@ class Student:
         self.grades = {}
 
     def grade_lecture(self, lecturer, course, grade):
+        """Оценка лекторам от учеников"""
         if isinstance(lecturer, Lecturer) and course in self.courses_in_progress \
                 and course in lecturer.courses_mentored:
             if course in lecturer.grades:
@@ -27,7 +28,7 @@ class Student:
         res = f"\nИмя: {self.name}\nФамилия: {self.surname}\n" \
               f"Средняя оценка за домашние задания: {self.same_grades()}\n" \
               f"Курсы в процессе изучения: {', '.join(self.courses_in_progress)}\n" \
-              f"Завершенные курсы: {', '.join(self.finished_courses)}"
+              f"Завершенные курсы: {', '.join(self.finished_courses)}\n"
         return res
 
 
@@ -49,8 +50,12 @@ class Lecturer(Mentor, Student):
               f"Средняя оценка за лекции: {self.same_grades()}"
         return res
 
+    def __lt__(self, other):
+        return self.same_grades() >= other.same_grades()
+
 
 class Reviewer(Mentor):
+    """Выставление оценок студентам"""
     def rate_hw(self, student, course, grade):
         if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
             if course in student.grades:
@@ -75,14 +80,25 @@ some_student = Student('Ruy', 'Eman', 'your_gender')
 some_student.courses_in_progress += ['Git', 'Python']
 some_student.finished_courses = ['Введение в программирование']
 
+# Оцеки студентам
 some_reviewer.rate_hw(some_student, 'Python', 10)
 some_reviewer.rate_hw(some_student, 'Python', 9)
 some_reviewer.rate_hw(some_student, 'Python', 10)
 
+# Оценки лекторам
 some_student.grade_lecture(some_lecturer, 'Git', 10)
-some_student.grade_lecture(some_lecturer, 'Git', 10)
-some_student.grade_lecture(some_lecturer, 'Git', 8)
+some_student.grade_lecture(some_lecturer, 'Git', 9)
+some_student.grade_lecture(some_lecturer, 'Git', 9)
 
 print(some_reviewer)
 print(some_lecturer)
 print(some_student)
+
+
+# Сравнение
+if some_student.same_grades() > some_lecturer.same_grades():
+    print("Средняя оценка студентов больше чем у лекторов")
+elif some_student.same_grades() < some_lecturer.same_grades():
+    print("Средняя оценка Лекторов болше чем у студентов")
+else:
+    print("Средние оценки равны")
