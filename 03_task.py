@@ -108,21 +108,46 @@ else:
     print("Средние оценки равны")
 
 # Полевые испытания:
+print("\nЗадание №4. Полевые испытания:")
 
 
-def grade_student(student, course):
+def grade_student(course, *students):
     """Срелняя оцека по студентам"""
-    pass
+    avr_grade_student = 0
+    num_students = 0
+    mark = 0
+
+    for i in students:
+        if i.grades.get(course):
+            sum_grade = sum(i.grades[course]) / len(i.grades[course])
+            num_students += 1
+            mark += sum_grade
+        if num_students != 0:
+            avr_grade_student = mark / num_students
+        print(f"Средняя оценка студентов по {course}: {avr_grade_student}")
 
 
-def grade_lecturer(lecturer, course):
+def grade_lecturer(course, *lecturers):
     """Средняя оцека по лекторам"""
-    pass
+    avr_grade_lecturers = 0
+    num_lecturers = 0
+    mark = 0
+
+    for i in lecturers:
+        if i.grades.get(course):
+            sum_grade = round(sum(i.grades[course]) / len(i.grades[course]), 1)
+            num_lecturers += 1
+            mark += sum_grade
+        if num_lecturers != 0:
+            avr_grade_lecturers = mark / num_lecturers
+        print(f"Средняя оценка Лекторов по {course}: {avr_grade_lecturers}")
 
 
 # Студенты
 flow_one_student = Student('Oleg', 'Shishkin', 'man')
+flow_one_student.finished_courses = ['Git']
 flow_two_student = Student('Natasha', 'Queen', 'woman')
+flow_two_student.finished_courses = ['Git', 'Python']
 
 flow_one_student.courses_in_progress += ['Git', 'Python']
 flow_two_student.courses_in_progress += ['Git', 'Python']
@@ -137,7 +162,9 @@ git_lecturer.courses_mentored += ['Git']
 
 # Оцеки лекторам
 flow_one_student.grade_lecture(python_lecturer, 'Python', 10)
+flow_one_student.grade_lecture(python_lecturer, 'Python', 9)
 flow_two_student.grade_lecture(git_lecturer, 'Git', 9)
+flow_two_student.grade_lecture(git_lecturer, 'Git', 8)
 
 # Проверяющии
 python_reviewer = Reviewer('Sasha', 'Ivanov')
@@ -148,7 +175,7 @@ git_reviewer.courses_attached += ['Git']
 
 # Оцеки студентам
 python_reviewer.rate_hw(flow_one_student, 'Python', 9)
-git_reviewer.rate_hw(flow_two_student, 'Git', 7)
+git_reviewer.rate_hw(flow_two_student, 'Git', 8)
 
 
 print(python_reviewer)
@@ -159,3 +186,10 @@ print(git_lecturer)
 
 print(flow_one_student)
 print(flow_two_student)
+
+
+grade_student('Python', flow_one_student)
+grade_student('Git', flow_two_student)
+print()
+grade_lecturer('Python', python_lecturer)
+grade_lecturer('Git', git_lecturer)
